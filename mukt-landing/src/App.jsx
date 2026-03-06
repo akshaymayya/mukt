@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowRight, ShieldAlert, PiggyBank, Target, ChevronRight, Download, Link, Compass, CheckCircle2 } from 'lucide-react';
 import logo from './assets/logo.png';
+import catifaalLogo from './assets/catifaal.png';
 
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
@@ -103,6 +104,10 @@ export default function App() {
       <footer style={{ padding: '80px 24px', textAlign: 'center', background: '#fff', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
         <h2 className="text-3xl font-bold mb-6 text-accent-dark">Stop paying for what you don't owe.</h2>
         <button onClick={() => setShowWaitlist(true)} className="btn btn-primary" style={{ transform: 'scale(1.1)' }}>Join the waitlist today <ArrowRight size={20} /></button>
+        <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', opacity: 0.8 }}>
+          <span className="text-sm font-medium text-text-secondary">An initiative by</span>
+          <img src={catifaalLogo} alt="Catifaal.io" style={{ height: '24px', objectFit: 'contain', filter: 'invert(1)' }} />
+        </div>
         <p className="mt-8 text-sm text-text-secondary">© 2026 Mukt Financial Solutions. Not a lender. Your data is encrypted and secure.</p>
       </footer>
     </>
