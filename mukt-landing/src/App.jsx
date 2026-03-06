@@ -106,7 +106,7 @@ export default function App() {
         <button onClick={() => setShowWaitlist(true)} className="btn btn-primary" style={{ transform: 'scale(1.1)' }}>Join the waitlist today <ArrowRight size={20} /></button>
         <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', opacity: 0.8 }}>
           <span className="text-sm font-medium text-text-secondary">An initiative by</span>
-          <img src={catifaalLogo} alt="Catifaal.io" style={{ height: '24px', objectFit: 'contain', filter: 'invert(1)' }} />
+          <img src={catifaalLogo} alt="Catifaal.io" style={{ height: '80px', objectFit: 'contain', filter: 'invert(1)' }} />
         </div>
         <p className="mt-8 text-sm text-text-secondary">© 2026 Mukt Financial Solutions. Not a lender. Your data is encrypted and secure.</p>
       </footer>
