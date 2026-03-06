@@ -64,7 +64,7 @@ export default function App() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="flex items-center gap-2 mb-8" style={{ padding: '0 16px' }}>
-          <img src={logo} alt="Mukt Logo" style={{ width: '120px', height: 'auto', maxHeight: '48px', objectFit: 'contain' }} />
+          <img src={logo} alt="Mukt Logo" style={{ height: '50px', width: 'auto', objectFit: 'contain' }} />
         </div>
 
         <nav className="flex-col gap-2 flex-grow">

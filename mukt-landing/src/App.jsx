@@ -78,7 +78,7 @@ export default function App() {
       <nav className="navbar">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-2 font-bold font-['Outfit'] text-2xl tracking-tight text-accent-dark">
-            <img src={logo} alt="Mukt Logo" style={{ width: '120px', height: 'auto', maxHeight: '40px', objectFit: 'contain' }} />
+            <img src={logo} alt="Mukt Logo" style={{ height: '50px', width: 'auto', objectFit: 'contain' }} />
           </div>
           <div className="nav-links hidden md:flex">
             <a href="#problem" className="nav-link">The Problem</a>
