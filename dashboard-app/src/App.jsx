@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  TrendingDown, 
-  Map, 
-  Target, 
-  BadgeIndianRupee, 
+import {
+  TrendingDown,
+  Map,
+  Target,
+  BadgeIndianRupee,
   ShieldAlert,
   ArrowUpRight,
   ArrowDownRight,
@@ -21,6 +21,7 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell
 } from 'recharts';
+import logo from './assets/logo.png';
 
 // --- MOCK DATA ---
 const debtData = [
@@ -63,8 +64,7 @@ export default function App() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="flex items-center gap-2 mb-8" style={{ padding: '0 16px' }}>
-          <TrendingDown className="h-8 w-8 text-accent-primary" />
-          <h1 className="text-xl font-bold text-gradient">Mukt.</h1>
+          <img src={logo} alt="Mukt Logo" style={{ width: '120px', height: 'auto', maxHeight: '48px', objectFit: 'contain' }} />
         </div>
 
         <nav className="flex-col gap-2 flex-grow">
@@ -109,14 +109,14 @@ export default function App() {
 
         {/* Dynamic Content */}
         {activeTab === 'dashboard' && (
-          <Dashboard 
-            totalDebt={totalDebt} 
-            totalMinPayment={totalMinPayment} 
-            avgInterest={avgInterest} 
+          <Dashboard
+            totalDebt={totalDebt}
+            totalMinPayment={totalMinPayment}
+            avgInterest={avgInterest}
             setActiveTab={setActiveTab}
           />
         )}
-        
+
         {activeTab === 'debt-map' && <DebtMap debtData={debtData} totalDebt={totalDebt} />}
         {activeTab === 'strategy' && <StrategyEngine />}
         {activeTab === 'found-money' && <FoundMoney />}
@@ -191,7 +191,7 @@ function Dashboard({ totalDebt, totalMinPayment, avgInterest, setActiveTab }) {
             <h3 className="text-lg font-bold">Journey to Zero</h3>
             <div className="badge badge-success">On Track</div>
           </div>
-          
+
           <div className="flex items-center gap-8 mb-6 bg-black/20 p-6 rounded-lg border border-white/5">
             <div>
               <p className="text-muted text-sm mb-1">Debt-Free Date</p>
@@ -204,23 +204,23 @@ function Dashboard({ totalDebt, totalMinPayment, avgInterest, setActiveTab }) {
             </div>
           </div>
 
-          <div className="chart-container" style={{height: '240px'}}>
+          <div className="chart-container" style={{ height: '240px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={projectionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorOpt" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--accent-primary)" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="var(--accent-primary)" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="var(--accent-primary)" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="var(--accent-primary)" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="colorCurr" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.1}/>
-                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.1} />
+                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                 <XAxis dataKey="month" stroke="var(--text-muted)" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="var(--text-muted)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${v/1000}k`} />
-                <Tooltip 
+                <YAxis stroke="var(--text-muted)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `₹${v / 1000}k`} />
+                <Tooltip
                   contentStyle={{ backgroundColor: 'rgba(26, 29, 36, 0.9)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }}
                   itemStyle={{ color: '#fff' }}
                 />
@@ -234,7 +234,7 @@ function Dashboard({ totalDebt, totalMinPayment, avgInterest, setActiveTab }) {
         {/* Action Center */}
         <div className="glass-panel flex flex-col gap-4">
           <h3 className="text-lg font-bold mb-2">Action Center</h3>
-          
+
           <div className="p-4 rounded-lg bg-accent-primary/10 border border-accent-primary/20 relative overflow-hidden group hover:bg-accent-primary/15 transition-fast cursor-pointer">
             <div className="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-40 transition-fast group-hover:scale-110">
               <PiggyBank size={64} />
@@ -250,14 +250,14 @@ function Dashboard({ totalDebt, totalMinPayment, avgInterest, setActiveTab }) {
           </div>
 
           <div className="p-4 rounded-lg border border-white/10 hover:border-white/20 transition-fast cursor-pointer flex items-center gap-4">
-             <div className="h-10 w-10 rounded-full bg-accent-warning/20 flex items-center justify-center text-accent-warning">
-               <Target size={20} />
-             </div>
-             <div>
-               <h4 className="font-medium text-sm">Review Strategy</h4>
-               <p className="text-xs text-muted">SBI Card rate changed</p>
-             </div>
-             <ChevronRight size={16} className="ml-auto text-muted" />
+            <div className="h-10 w-10 rounded-full bg-accent-warning/20 flex items-center justify-center text-accent-warning">
+              <Target size={20} />
+            </div>
+            <div>
+              <h4 className="font-medium text-sm">Review Strategy</h4>
+              <p className="text-xs text-muted">SBI Card rate changed</p>
+            </div>
+            <ChevronRight size={16} className="ml-auto text-muted" />
           </div>
         </div>
       </div>
@@ -290,7 +290,7 @@ function DebtMap({ debtData, totalDebt }) {
                     {debt.rate}% APR
                   </p>
                 </div>
-                <button className="btn btn-secondary !p-2 !rounded-lg"><ChevronRight size={20}/></button>
+                <button className="btn btn-secondary !p-2 !rounded-lg"><ChevronRight size={20} /></button>
               </div>
             )
           })}
@@ -316,7 +316,7 @@ function DebtMap({ debtData, totalDebt }) {
                     <Cell key={`cell-${index}`} fill={entry.color} stroke="rgba(0,0,0,0)" />
                   ))}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ backgroundColor: 'rgba(26, 29, 36, 0.9)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }}
                   itemStyle={{ color: '#fff' }}
                   formatter={(value) => `₹${value.toLocaleString()}`}
@@ -324,7 +324,7 @@ function DebtMap({ debtData, totalDebt }) {
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
-              <span className="text-2xl font-bold">₹{(totalDebt/1000).toFixed(0)}k</span>
+              <span className="text-2xl font-bold">₹{(totalDebt / 1000).toFixed(0)}k</span>
               <span className="text-xs text-muted">Total</span>
             </div>
           </div>
@@ -332,10 +332,10 @@ function DebtMap({ debtData, totalDebt }) {
             {debtData.map(d => (
               <div key={d.id} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full" style={{backgroundColor: d.color}}></div>
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: d.color }}></div>
                   <span className="text-text-secondary">{d.name}</span>
                 </div>
-                <span className="font-medium">{Math.round((d.amount/totalDebt)*100)}%</span>
+                <span className="font-medium">{Math.round((d.amount / totalDebt) * 100)}%</span>
               </div>
             ))}
           </div>
@@ -364,7 +364,7 @@ function StrategyEngine() {
 
       <div className="grid grid-cols-2 gap-6 mb-8">
         {/* Avalanche */}
-        <div 
+        <div
           className={`glass-panel cursor-pointer transition-all ${strategy === 'avalanche' ? 'border-accent-primary ring-1 ring-accent-primary transform scale-[1.02]' : 'hover:border-white/20'}`}
           onClick={() => setStrategy('avalanche')}
         >
@@ -376,21 +376,21 @@ function StrategyEngine() {
           </div>
           <h3 className="text-xl font-bold mb-2">Avalanche Method</h3>
           <p className="text-sm text-muted mb-6">Target highest interest rate first. Mathematically optimal.</p>
-          
+
           <div className="bg-black/20 rounded-lg p-4 space-y-3 border border-white/5">
-             <div className="flex justify-between text-sm">
-               <span className="text-muted">Total Interest Paid</span>
-               <span className="font-bold text-accent-primary">₹42,500</span>
-             </div>
-             <div className="flex justify-between text-sm">
-               <span className="text-muted">Time to Freedom</span>
-               <span className="font-bold">19 Months</span>
-             </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted">Total Interest Paid</span>
+              <span className="font-bold text-accent-primary">₹42,500</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted">Time to Freedom</span>
+              <span className="font-bold">19 Months</span>
+            </div>
           </div>
         </div>
 
         {/* Snowball */}
-        <div 
+        <div
           className={`glass-panel cursor-pointer transition-all ${strategy === 'snowball' ? 'border-accent-primary ring-1 ring-accent-primary transform scale-[1.02]' : 'hover:border-white/20'}`}
           onClick={() => setStrategy('snowball')}
         >
@@ -402,16 +402,16 @@ function StrategyEngine() {
           </div>
           <h3 className="text-xl font-bold mb-2">Snowball Method</h3>
           <p className="text-sm text-muted mb-6">Target smallest balance first. Builds psychological momentum.</p>
-          
+
           <div className="bg-black/20 rounded-lg p-4 space-y-3 border border-white/5">
-             <div className="flex justify-between text-sm">
-               <span className="text-muted">Total Interest Paid</span>
-               <span className="font-bold text-accent-danger">₹51,200</span>
-             </div>
-             <div className="flex justify-between text-sm">
-               <span className="text-muted">Time to Freedom</span>
-               <span className="font-bold">22 Months</span>
-             </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted">Total Interest Paid</span>
+              <span className="font-bold text-accent-danger">₹51,200</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted">Time to Freedom</span>
+              <span className="font-bold">22 Months</span>
+            </div>
           </div>
         </div>
       </div>
@@ -419,7 +419,7 @@ function StrategyEngine() {
       <div className="glass-panel p-8 text-center bg-gradient-to-br from-bg-glass to-accent-primary/5">
         <h3 className="text-xl font-bold mb-4">Your personalized attack plan</h3>
         <p className="text-muted mb-6">Based on the <strong>{strategy === 'avalanche' ? 'Avalanche' : 'Snowball'}</strong> strategy, here is exactly what you need to do this month:</p>
-        
+
         <div className="bg-black/40 rounded-xl p-6 inline-block text-left border border-white/10 mx-auto min-w-[300px]">
           <ol className="space-y-4 relative">
             <div className="absolute left-3.5 top-2 bottom-2 w-px bg-white/10 z-0"></div>
@@ -438,7 +438,7 @@ function StrategyEngine() {
               </div>
             </li>
             <li className="flex items-center gap-4 relative z-10">
-              <div className="h-7 w-7 rounded-full bg-accent-blue text-white flex items-center justify-center font-bold text-sm ring-4 ring-bg-secondary"><ArrowDownRight size={14}/></div>
+              <div className="h-7 w-7 rounded-full bg-accent-blue text-white flex items-center justify-center font-bold text-sm ring-4 ring-bg-secondary"><ArrowDownRight size={14} /></div>
               <div>
                 <p className="font-medium text-white text-lg">Blast {strategy === 'avalanche' ? 'SBI Card' : 'KreditBee'}</p>
                 <p className="text-accent-blue font-bold text-sm">All remaining cash (₹{strategy === 'avalanche' ? '2,250' : '3,000'} + ₹850 extra)</p>
@@ -446,7 +446,7 @@ function StrategyEngine() {
             </li>
           </ol>
         </div>
-        
+
         <div className="mt-8">
           <button className="btn btn-primary text-lg px-8 py-3">Commit to this Plan</button>
         </div>
@@ -458,56 +458,56 @@ function StrategyEngine() {
 function FoundMoney() {
   return (
     <div className="animate-fade-in delay-100 max-w-4xl mx-auto">
-       <div className="glass-panel border-accent-primary/30 mb-8 overflow-hidden relative">
-         <div className="absolute top-0 right-0 p-8 opacity-10">
-           <PiggyBank size={120} />
-         </div>
-         <div className="relative z-10 flex flex-col items-center text-center p-4">
-           <div className="badge badge-success mb-4">AI Scan Complete</div>
-           <h2 className="text-3xl font-bold mb-2">We found <span className="text-accent-primary">₹1,450</span> for you.</h2>
-           <p className="text-text-secondary max-w-md mx-auto mb-6">We securely analyzed your UPI transactions over the last 30 days. Here is money you didn't know you had.</p>
-           
-           <button className="btn btn-primary shadow-glow px-8 py-3 text-lg">
-             Apply ₹1,450 to Debt Now
-           </button>
-         </div>
-       </div>
+      <div className="glass-panel border-accent-primary/30 mb-8 overflow-hidden relative">
+        <div className="absolute top-0 right-0 p-8 opacity-10">
+          <PiggyBank size={120} />
+        </div>
+        <div className="relative z-10 flex flex-col items-center text-center p-4">
+          <div className="badge badge-success mb-4">AI Scan Complete</div>
+          <h2 className="text-3xl font-bold mb-2">We found <span className="text-accent-primary">₹1,450</span> for you.</h2>
+          <p className="text-text-secondary max-w-md mx-auto mb-6">We securely analyzed your UPI transactions over the last 30 days. Here is money you didn't know you had.</p>
 
-       <h3 className="font-bold text-xl mb-4">Where did this come from?</h3>
-       
-       <div className="space-y-4">
-         <div className="glass-panel flex items-center justify-between !p-5">
-           <div className="flex items-center gap-4">
-             <div className="h-12 w-12 rounded-full bg-[#E50914]/10 text-[#E50914] flex items-center justify-center">
-               <CreditCard size={24} />
-             </div>
-             <div>
-               <h4 className="font-bold text-lg">Forgotten Subscription</h4>
-               <p className="text-sm text-muted">Netflix Standard - Not used in 45 days</p>
-             </div>
-           </div>
-           <div className="flex items-center gap-6">
-             <span className="font-bold text-xl text-accent-primary">+₹499</span>
-             <button className="btn btn-secondary !py-2 !px-4 text-xs">Cancel This</button>
-           </div>
-         </div>
+          <button className="btn btn-primary shadow-glow px-8 py-3 text-lg">
+            Apply ₹1,450 to Debt Now
+          </button>
+        </div>
+      </div>
 
-         <div className="glass-panel flex items-center justify-between !p-5">
-           <div className="flex items-center gap-4">
-             <div className="h-12 w-12 rounded-full bg-orange-500/10 text-orange-400 flex items-center justify-center">
-               <TrendingDown size={24} />
-             </div>
-             <div>
-               <h4 className="font-bold text-lg">Under-budget on Food Delivery</h4>
-               <p className="text-sm text-muted">Swiggy/Zomato drop compared to 3-month avg</p>
-             </div>
-           </div>
-           <div className="flex items-center gap-6">
-             <span className="font-bold text-xl text-accent-primary">+₹951</span>
-             <button className="btn btn-secondary !py-2 !px-4 text-xs opacity-50 cursor-default">Auto-Detected</button>
-           </div>
-         </div>
-       </div>
+      <h3 className="font-bold text-xl mb-4">Where did this come from?</h3>
+
+      <div className="space-y-4">
+        <div className="glass-panel flex items-center justify-between !p-5">
+          <div className="flex items-center gap-4">
+            <div className="h-12 w-12 rounded-full bg-[#E50914]/10 text-[#E50914] flex items-center justify-center">
+              <CreditCard size={24} />
+            </div>
+            <div>
+              <h4 className="font-bold text-lg">Forgotten Subscription</h4>
+              <p className="text-sm text-muted">Netflix Standard - Not used in 45 days</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-6">
+            <span className="font-bold text-xl text-accent-primary">+₹499</span>
+            <button className="btn btn-secondary !py-2 !px-4 text-xs">Cancel This</button>
+          </div>
+        </div>
+
+        <div className="glass-panel flex items-center justify-between !p-5">
+          <div className="flex items-center gap-4">
+            <div className="h-12 w-12 rounded-full bg-orange-500/10 text-orange-400 flex items-center justify-center">
+              <TrendingDown size={24} />
+            </div>
+            <div>
+              <h4 className="font-bold text-lg">Under-budget on Food Delivery</h4>
+              <p className="text-sm text-muted">Swiggy/Zomato drop compared to 3-month avg</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-6">
+            <span className="font-bold text-xl text-accent-primary">+₹951</span>
+            <button className="btn btn-secondary !py-2 !px-4 text-xs opacity-50 cursor-default">Auto-Detected</button>
+          </div>
+        </div>
+      </div>
 
     </div>
   )
@@ -518,16 +518,16 @@ function LoanTrapWarning({ onClose }) {
     <div className="overlay">
       <div className="modal animate-fade-in text-center relative overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-1 bg-accent-danger"></div>
-        
+
         <div className="mx-auto w-16 h-16 rounded-full bg-accent-danger/20 flex flex-col items-center justify-center text-accent-danger mb-6 shrink-0 shadow-lg ring-8 ring-accent-danger/5">
           <ShieldAlert size={32} />
         </div>
-        
+
         <h2 className="text-2xl font-bold mb-2">Wait, Ravi. Stop.</h2>
         <p className="text-text-secondary mb-6 leading-relaxed text-sm">
           We noticed you're looking at taking a new <strong>₹15,000</strong> loan from <i>MoneyTap</i>. Before you click accept, let us show you the real cost.
         </p>
-        
+
         <div className="bg-black/30 rounded-lg p-5 mb-6 text-left border border-white/5 shadow-inner">
           <div className="flex justify-between items-center mb-3 text-sm">
             <span className="text-muted">On Screen it says</span>
@@ -543,7 +543,7 @@ function LoanTrapWarning({ onClose }) {
             <span className="font-bold text-lg">₹19,250</span>
           </div>
         </div>
-        
+
         <p className="text-accent-warning font-medium text-sm mb-8">
           This will add another ₹1,400 to your monthly minimum payments, breaking your optimized strategy.
         </p>
