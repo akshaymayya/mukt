@@ -16,7 +16,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const joinWaitlist = useMutation(api.waitlist.joinWaitlist);
-  const { loginWithRedirect, user, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, loginWithPopup, user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -71,17 +71,33 @@ export default function App() {
   };
 
   const handleSocialLogin = async (connection) => {
-    localStorage.setItem('autoJoinWaitlist', 'true');
     setLoading(true);
-    setStatus({ message: "Redirecting...", error: false });
-    try {
-      await loginWithRedirect({
-        authorizationParams: { connection }
-      });
-    } catch (err) {
-      console.error("Auth0 redirect failed", err);
-      setStatus({ message: "Login failed. You can try again.", error: true });
-      setLoading(false);
+    
+    // Auth0 Dev Keys for Twitter/LinkedIn don't work well with redirect. 
+    // Google works better with redirect to avoid popup blockers.
+    if (connection === 'google-oauth2') {
+      localStorage.setItem('autoJoinWaitlist', 'true');
+      setStatus({ message: "Redirecting...", error: false });
+      try {
+        await loginWithRedirect({
+          authorizationParams: { connection }
+        });
+      } catch (err) {
+        console.error("Auth0 redirect failed", err);
+        setStatus({ message: "Login failed. You can try again.", error: true });
+        setLoading(false);
+      }
+    } else {
+      setStatus({ message: "Opening login window...", error: false });
+      try {
+        await loginWithPopup({
+          authorizationParams: { connection }
+        });
+      } catch (err) {
+        console.error("Auth0 popup failed", err);
+        setStatus({ message: "Login window blocked or closed.", error: true });
+        setLoading(false);
+      }
     }
   };
 
