@@ -7,8 +7,10 @@ import catifaalLogo from './assets/catifaal.png';
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { useAuth0 } from "@auth0/auth0-react";
+import DashboardApp from './Dashboard';
 
 export default function App() {
+  const [showDashboard, setShowDashboard] = useState(false);
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -101,6 +103,10 @@ export default function App() {
     }
   };
 
+  if (showDashboard) {
+    return <DashboardApp onBack={() => setShowDashboard(false)} />;
+  }
+
   return (
     <>
       <div className="bg-grid"></div>
@@ -178,7 +184,7 @@ export default function App() {
       </nav>
 
       <main>
-        <HeroSection onWaitlist={() => setShowWaitlist(true)} />
+        <HeroSection onWaitlist={() => setShowWaitlist(true)} onSeeDemo={() => setShowDashboard(true)} />
         <HighlightTextSection />
         <StickyFeatureSection />
         <SolutionSection />
@@ -200,7 +206,7 @@ export default function App() {
 // ------------------------------------------------------------------
 // HERO SECTION
 // ------------------------------------------------------------------
-function HeroSection({ onWaitlist }) {
+function HeroSection({ onWaitlist, onSeeDemo }) {
   const { scrollY } = useScroll();
   const yImage = useTransform(scrollY, [0, 500], [0, 150]);
   const opacityImage = useTransform(scrollY, [0, 300], [1, 0.3]);
@@ -229,9 +235,9 @@ function HeroSection({ onWaitlist }) {
           <button onClick={onWaitlist} className="btn btn-primary">
             Get Early Access
           </button>
-          <a href={import.meta.env.VITE_DASHBOARD_URL || "http://localhost:5173"} className="btn btn-outline">
+          <button onClick={onSeeDemo} className="btn btn-outline">
             See how it works
-          </a>
+          </button>
         </div>
       </motion.div>
 
