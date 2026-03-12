@@ -1,5 +1,6 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { api } from "./_generated/api";
 
 export const joinWaitlist = mutation({
     args: { name: v.string(), email: v.string() },
@@ -18,6 +19,12 @@ export const joinWaitlist = mutation({
         await ctx.db.insert("waitlist", {
             name: args.name,
             email: args.email,
+        });
+
+        // Send a welcome email automatically
+        await ctx.scheduler.runAfter(0, api.email.sendWelcomeEmail, {
+            name: args.name,
+            email: args.email
         });
 
         return { success: true, message: "You're on the list!" };
