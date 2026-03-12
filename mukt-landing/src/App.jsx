@@ -29,7 +29,9 @@ export default function App() {
           if (shouldAutoJoin) setShowWaitlist(true); // Open popup automatically when they return
           
           try {
-            const response = await joinWaitlist({ name: user.name || "User", email: user.email });
+            // Some social providers like Twitter don't always return an email, so we use their ID as fallback
+            const userEmail = user.email || user.sub || "unknown-social-user";
+            const response = await joinWaitlist({ name: user.name || user.nickname || "User", email: userEmail });
             setStatus({
               message: response.message || "Successfully joined waitlist!",
               error: !response.success
