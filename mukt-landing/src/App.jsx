@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowRight, ShieldAlert, PiggyBank, Target, ChevronRight, Download, Link, Compass, CheckCircle2 } from 'lucide-react';
 import logo from './assets/logo.png';
@@ -6,6 +6,7 @@ import catifaalLogo from './assets/catifaal.png';
 
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function App() {
   const [showWaitlist, setShowWaitlist] = useState(false);
@@ -15,6 +16,36 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const joinWaitlist = useMutation(api.waitlist.joinWaitlist);
+  const { loginWithRedirect, user, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const shouldAutoJoin = localStorage.getItem('autoJoinWaitlist') === 'true';
+      if (showWaitlist || shouldAutoJoin) {
+        const autoJoin = async () => {
+          setLoading(true);
+          if (shouldAutoJoin) setShowWaitlist(true); // Open popup automatically when they return
+          
+          try {
+            const response = await joinWaitlist({ name: user.name || "User", email: user.email });
+            setStatus({
+              message: response.message || "Successfully joined waitlist!",
+              error: !response.success
+            });
+            if (response.success) {
+              localStorage.removeItem('autoJoinWaitlist');
+              setTimeout(() => setShowWaitlist(false), 2000);
+            }
+          } catch (err) {
+            setStatus({ message: "Something went wrong. Try again.", error: true });
+          } finally {
+            setLoading(false);
+          }
+        };
+        autoJoin();
+      }
+    }
+  }, [isAuthenticated, user, showWaitlist, joinWaitlist]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +70,21 @@ export default function App() {
     }
   };
 
+  const handleSocialLogin = async (connection) => {
+    localStorage.setItem('autoJoinWaitlist', 'true');
+    setLoading(true);
+    setStatus({ message: "Redirecting...", error: false });
+    try {
+      await loginWithRedirect({
+        authorizationParams: { connection }
+      });
+    } catch (err) {
+      console.error("Auth0 redirect failed", err);
+      setStatus({ message: "Login failed. You can try again.", error: true });
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="bg-grid"></div>
@@ -50,6 +96,27 @@ export default function App() {
             <button onClick={() => setShowWaitlist(false)} style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '1.5rem', color: '#666' }}>&times;</button>
             <h2 className="text-2xl font-bold mb-2">Get Early Access</h2>
             <p className="text-text-secondary mb-6">Join the waitlist to break free from debt.</p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
+              <button type="button" disabled={loading} onClick={() => handleSocialLogin('google-oauth2')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#fff', fontWeight: 600, cursor: 'pointer' }}>
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style={{ width: 18, height: 18 }} />
+                Continue with Google
+              </button>
+              <button type="button" disabled={loading} onClick={() => handleSocialLogin('linkedin')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#fff', fontWeight: 600, cursor: 'pointer' }}>
+                <img src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="LinkedIn" style={{ width: 18, height: 18 }} />
+                Continue with LinkedIn
+              </button>
+              <button type="button" disabled={loading} onClick={() => handleSocialLogin('twitter')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #e2e8f0', background: '#fff', fontWeight: 600, cursor: 'pointer' }}>
+                <img src="https://www.svgrepo.com/show/513008/twitter-154.svg" alt="Twitter" style={{ width: 18, height: 18 }} />
+                Continue with Twitter
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', margin: '20px 0', color: '#94a3b8', fontSize: '0.9rem' }}>
+              <div style={{ flex: 1, height: '1px', background: '#e2e8f0' }}></div>
+              <span style={{ margin: '0 10px' }}>or via Email</span>
+              <div style={{ flex: 1, height: '1px', background: '#e2e8f0' }}></div>
+            </div>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
@@ -146,7 +213,7 @@ function HeroSection({ onWaitlist }) {
           <button onClick={onWaitlist} className="btn btn-primary">
             Get Early Access
           </button>
-          <a href="http://localhost:5173" className="btn btn-outline">
+          <a href={import.meta.env.VITE_DASHBOARD_URL || "http://localhost:5173"} className="btn btn-outline">
             See how it works
           </a>
         </div>
