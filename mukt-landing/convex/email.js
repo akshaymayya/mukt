@@ -24,7 +24,9 @@ export const sendWelcomeEmail = action({
       const resend = new Resend(resendApiKey);
 
       const data = await resend.emails.send({
-        from: "Mukt <welcome@mukt.app>", // You will need to verify a domain in Resend to change this
+        // Since you don't own a custom domain yet (mukt.netlify.app is owned by Netlify),
+        // we must use Resend's testing domain address to send test emails to your own registered email address.
+        from: "Mukt <onboarding@resend.dev>", 
         to: [args.email],
         subject: "Welcome to early access for Mukt!",
         html: `
