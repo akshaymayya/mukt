@@ -121,7 +121,7 @@ export default function EarlyAccessSection() {
     <section id="early-access" className="bg-[#0a0a0a] py-24 md:py-32 px-4 md:px-6 border-y border-white/5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-12">
         
-        <div className="w-full md:w-5/12 sticky top-32">
+        <div className="w-full md:w-5/12 md:sticky md:top-32 mb-8 md:mb-0">
           <h2 className="text-4xl md:text-5xl font-normal text-[#E1E0CC] mb-6 tracking-tight leading-tight">
             Be the first to access <span className="font-serif italic text-primary">Mozara</span>.
           </h2>
