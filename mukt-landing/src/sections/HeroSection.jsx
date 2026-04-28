@@ -29,7 +29,7 @@ export default function HeroSection({ onScroll }) {
           <nav className="bg-black/90 backdrop-blur-md rounded-b-2xl md:rounded-b-3xl px-6 py-3 md:px-10 flex items-center justify-between shadow-2xl mx-auto w-fit md:w-auto">
             {/* Logo */}
             <div className="flex items-center justify-center mr-6 md:mr-14">
-              <img src="/logo.png" alt="Mozara" className="h-8 md:h-10 w-auto object-contain" />
+              <img src="/logo.png?v=2" alt="Mozara" className="h-8 md:h-10 w-auto object-contain" />
             </div>
 
             <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
