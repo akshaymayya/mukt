@@ -11,8 +11,8 @@ export default function AboutUs() {
 
       {/* Simple Header */}
       <nav className="bg-[#101010] border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between sticky top-0 z-50">
-        <Link to="/" className="font-bold text-lg md:text-xl tracking-tight text-[#E1E0CC]">
-          Mozara.io
+        <Link to="/" className="flex items-center">
+          <img src="/logo.png" alt="Mozara Logo" className="h-6 md:h-8 w-auto object-contain" />
         </Link>
         <Link to="/" className="text-primary text-sm hover:text-white transition-colors">
           &larr; Back to Home
