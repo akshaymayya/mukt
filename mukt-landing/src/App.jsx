@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
+import AboutUs from './pages/AboutUs';
 import ErrorBoundary from './components/ErrorBoundary';
 import DashboardApp from './Dashboard';
 import { AuthProvider, useAuth } from './components/AuthContext';
@@ -24,6 +25,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutUs />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
             <Route 

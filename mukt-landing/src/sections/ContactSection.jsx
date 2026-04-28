@@ -60,6 +60,7 @@ export default function ContactSection() {
           © {new Date().getFullYear()} Mozara by Catifaal Systems. All rights reserved.
         </div>
         <div className="flex gap-6 text-gray-500 text-xs">
+          <Link to="/about" className="hover:text-primary transition-colors">About Us</Link>
           <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
           <Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link>
         </div>
