@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { WordsPullUp } from '../components/AnimatedText';
+import { useAuth } from '../components/AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function HeroSection({ onScroll }) {
   return (
@@ -23,10 +25,10 @@ export default function HeroSection({ onScroll }) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 pointer-events-none" />
 
         {/* Navbar */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50">
-          <nav className="bg-black rounded-b-2xl md:rounded-b-3xl px-6 py-3 md:px-10 flex items-center gap-6 sm:gap-8 md:gap-14 shadow-2xl">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-7xl px-4 md:px-0">
+          <nav className="bg-black/90 backdrop-blur-md rounded-b-2xl md:rounded-b-3xl px-6 py-3 md:px-10 flex items-center justify-between shadow-2xl mx-auto w-fit md:w-auto">
             {/* Text Logo */}
-            <div className="flex items-center justify-center font-bold text-lg md:text-xl tracking-tight text-[#E1E0CC]">
+            <div className="flex items-center justify-center font-bold text-lg md:text-xl tracking-tight text-[#E1E0CC] mr-6 md:mr-14">
               Mozara.io
             </div>
 
@@ -38,7 +40,7 @@ export default function HeroSection({ onScroll }) {
                     key={item} 
                     href={`#${targetId}`}
                     onClick={(e) => onScroll(e, targetId)}
-                    className="text-[10px] sm:text-xs md:text-sm font-medium transition-colors hidden sm:block cursor-pointer"
+                    className="text-[10px] sm:text-xs md:text-sm font-medium transition-colors hidden md:block cursor-pointer"
                     style={{ color: 'rgba(225, 224, 204, 0.8)' }}
                     onMouseEnter={(e) => e.target.style.color = '#E1E0CC'}
                     onMouseLeave={(e) => e.target.style.color = 'rgba(225, 224, 204, 0.8)'}
@@ -47,6 +49,10 @@ export default function HeroSection({ onScroll }) {
                   </a>
                 );
               })}
+
+              {/* Authentication Actions */}
+              <AuthActions />
+              
             </div>
           </nav>
         </div>
@@ -94,5 +100,30 @@ export default function HeroSection({ onScroll }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function AuthActions() {
+  const { user, signInWithGoogle, signOut, loading } = useAuth();
+
+  if (loading) return <div className="w-16 h-8 rounded-full bg-white/10 animate-pulse"></div>;
+
+  if (user) {
+    return (
+      <div className="flex items-center gap-3">
+        <Link to="/dashboard" className="text-[10px] sm:text-xs md:text-sm font-medium text-black bg-primary px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-white transition-colors">
+          Dashboard
+        </Link>
+        <button onClick={signOut} className="text-[10px] sm:text-xs md:text-sm text-gray-400 hover:text-white transition-colors">
+          Sign Out
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <button onClick={signInWithGoogle} className="flex items-center gap-2 text-[10px] sm:text-xs md:text-sm font-medium text-black bg-white px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-gray-200 transition-colors">
+      Sign In
+    </button>
   );
 }

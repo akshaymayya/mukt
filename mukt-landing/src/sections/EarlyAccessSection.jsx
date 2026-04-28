@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Send } from 'lucide-react';
 import DOMPurify from 'dompurify';
 import { supabase } from '../lib/supabase';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function EarlyAccessSection() {
+  const recaptchaRef = useRef(null);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  
   const [formData, setFormData] = useState({
     name: '',
     business: '',
@@ -37,12 +41,22 @@ export default function EarlyAccessSection() {
     setError(''); // Clear error on typing
   };
 
+  const onRecaptchaChange = (token) => {
+    setRecaptchaToken(token);
+    if(token) setError('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Honeypot check
     if (formData._honey) {
       setStatus('success'); // Fake success for bots
+      return;
+    }
+
+    if (!recaptchaToken) {
+      setError('Please complete the reCAPTCHA to prove you are human.');
       return;
     }
 
@@ -91,6 +105,8 @@ export default function EarlyAccessSection() {
         setError('Something went wrong. Please try again.');
       }
       setStatus('idle');
+      if (recaptchaRef.current) recaptchaRef.current.reset();
+      setRecaptchaToken(null);
       return;
     }
 
@@ -171,13 +187,14 @@ export default function EarlyAccessSection() {
                 <div className="text-right text-[10px] text-gray-600">{formData.message.length}/1000</div>
               </div>
 
-              {/* Cloudflare Turnstile Placeholder */}
-              <div className="border border-white/5 bg-black/50 p-4 rounded-xl flex items-center justify-center min-h-[65px]">
-                <div className="text-xs text-gray-500 flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-gray-600 border-t-primary rounded-full animate-spin"></div>
-                  Verifying you are human. This may take a few seconds.
-                </div>
-                {/* <div className="cf-turnstile" data-sitekey="YOUR_SITE_KEY"></div> */}
+              {/* reCAPTCHA Widget */}
+              <div className="mt-2 flex justify-center md:justify-start">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey="6LfgKs4sAAAAADcf2w93ZxYxOF9jWh6n9wuhSFEc"
+                  onChange={onRecaptchaChange}
+                  theme="dark"
+                />
               </div>
 
               {error && (
