@@ -12,7 +12,7 @@ export default function FlowHub() {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-bg overflow-hidden relative">
+    <div className="flex flex-col md:flex-row h-[100dvh] bg-bg overflow-hidden relative">
       <div className="absolute inset-0 bg-noise z-0"></div>
       
       {/* Sidebar - Minimal Nav */}
