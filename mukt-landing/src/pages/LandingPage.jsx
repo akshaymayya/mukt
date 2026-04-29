@@ -2,6 +2,7 @@ import React from 'react';
 import HeroSection from '../sections/HeroSection';
 import AboutSection from '../sections/AboutSection';
 import FeaturesSection from '../sections/FeaturesSection';
+import DashboardShowcaseSection from '../sections/DashboardShowcaseSection';
 import EarlyAccessSection from '../sections/EarlyAccessSection';
 import ContactSection from '../sections/ContactSection';
 
@@ -16,6 +17,7 @@ export default function LandingPage() {
       <HeroSection onScroll={scrollTo} />
       <AboutSection />
       <FeaturesSection onScroll={scrollTo} />
+      <DashboardShowcaseSection />
       <EarlyAccessSection />
       <ContactSection />
     </div>

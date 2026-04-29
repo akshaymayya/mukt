@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound';
 import AboutUs from './pages/AboutUs';
 import ErrorBoundary from './components/ErrorBoundary';
 import DashboardApp from './Dashboard';
+import FlowDashboard from './pages/FlowDashboard/FlowDashboard';
 import { AuthProvider, useAuth } from './components/AuthContext';
 
 // Protected Route Component
@@ -36,6 +37,7 @@ export default function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route path="/flow" element={<FlowDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

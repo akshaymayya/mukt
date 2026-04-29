@@ -17,7 +17,7 @@ export default function HeroSection({ onScroll }) {
           loop 
           muted 
           playsInline 
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover z-0"
         />
 
         {/* Overlays */}
@@ -79,21 +79,24 @@ export default function HeroSection({ onScroll }) {
                 transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="text-primary/70 text-xs sm:text-sm md:text-base leading-[1.2] mb-6 md:text-right max-w-sm"
               >
-                Mozara is a complete project flow infrastructure. Connect your bank, define your rules, and let our engine automate vendor payments, compliance, and cash flow visibility for complex projects.
+                <strong className="text-primary block mb-2 font-medium">Financial Infrastructure Built for Pure Growth.</strong>
+                Connect your bank, define your rules, and let our engine automate vendor payments, compliance, and cash flow visibility for complex projects.
               </motion.p>
 
-              <motion.button 
+              <motion.a 
+                href="http://localhost:5174"
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                onClick={(e) => onScroll(e, 'early-access')}
-                className="group flex items-center bg-primary rounded-full pl-6 pr-2 py-2 gap-4 hover:gap-3 transition-all duration-300 ease-out"
+                className="group flex items-center justify-between md:justify-start bg-primary rounded-full pl-6 pr-2 py-2 gap-4 hover:gap-3 transition-all duration-300 ease-out w-full sm:w-auto mt-2 md:mt-0"
               >
-                <span className="text-black font-medium text-sm sm:text-base whitespace-nowrap">Join the waitlist</span>
-                <div className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform duration-300 ease-out group-hover:scale-110">
+                <span className="text-black font-medium text-sm sm:text-base whitespace-nowrap">Go to Dashboard</span>
+                <div className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform duration-300 ease-out group-hover:scale-110 shrink-0">
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-              </motion.button>
+              </motion.a>
             </div>
 
           </div>

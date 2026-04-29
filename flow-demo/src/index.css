@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Flow Theme - Cinematic Dark Mode Terminal */
+:root {
+  --bg: 0 0% 4%;
+  --surface: 0 0% 8%;
+  --text: 0 0% 96%;
+  --muted: 0 0% 53%;
+  --stroke: 0 0% 12%;
+  --accent: 0 0% 96%;
+  
+  --flow-radius: 8px;
+  --flow-radius-lg: 12px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: hsl(var(--bg));
+  color: hsl(var(--text));
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Animations */
+@keyframes scroll-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@layer components {
+  /* Accent Gradient Utility */
+  .accent-gradient {
+    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    background-size: 200% auto;
+  }
+
+  .accent-gradient-hover:hover {
+    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    background-size: 200% auto;
+    animation: gradient-shift 6s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Noise Overlay */
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  /* Card */
+  .flow-card {
+    background: rgba(20, 20, 20, 0.7); /* Surface with slight transparency */
+    backdrop-filter: blur(12px);
+    border-radius: var(--flow-radius-lg);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    border: 1px solid hsl(var(--stroke));
+    transition: all 0.3s ease;
+  }
+
+  .flow-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    border-color: rgba(137, 170, 204, 0.3); /* Accent subtle border */
+  }
+
+  /* Buttons */
+  .flow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--flow-radius);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+  }
+
+  .flow-btn-primary {
+    background: hsl(var(--text));
+    color: hsl(var(--bg));
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+  }
+
+  .flow-btn-primary:hover {
+    background: hsl(var(--bg));
+    color: hsl(var(--text));
+    position: relative;
+    z-index: 1;
+  }
+  
+  .flow-btn-primary:hover::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(var(--flow-radius) + 2px);
+    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    background-size: 200% auto;
+    animation: gradient-shift 6s ease infinite;
+    z-index: -1;
+  }
+
+  .flow-btn-secondary {
+    background-color: transparent;
+    color: hsl(var(--text));
+    border: 1px solid hsl(var(--stroke));
+  }
+
+  .flow-btn-secondary:hover {
+    border-color: transparent;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-btn-secondary:hover::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(var(--flow-radius) + 1px);
+    background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+    background-size: 200% auto;
+    animation: gradient-shift 6s ease infinite;
+    z-index: -1;
+  }
+
+  /* Inputs */
+  .flow-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .flow-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: hsl(var(--muted));
+  }
+
+  .flow-input {
+    padding: 10px 12px;
+    border-radius: var(--flow-radius);
+    border: 1px solid hsl(var(--stroke));
+    background-color: hsl(var(--bg));
+    color: hsl(var(--text));
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .flow-input:focus {
+    outline: none;
+    border-color: #89AACC;
+    box-shadow: 0 0 0 1px #89AACC;
+  }
+
+  .flow-input::placeholder {
+    color: hsl(var(--muted));
+  }
+
+  /* Badges */
+  .flow-badge {
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 9999px;
+    align-items: center;
+    border: 1px solid hsl(var(--stroke));
+  }
+  .flow-badge-blue {
+    background-color: rgba(137, 170, 204, 0.1);
+    color: #89AACC;
+    border-color: rgba(137, 170, 204, 0.2);
+  }
+  .flow-badge-orange {
+    background-color: rgba(255, 184, 0, 0.1);
+    color: #ffb800;
+    border-color: rgba(255, 184, 0, 0.2);
+  }
+  .flow-badge-green {
+    background-color: rgba(0, 217, 36, 0.1);
+    color: #00d924;
+    border-color: rgba(0, 217, 36, 0.2);
+  }
+}
