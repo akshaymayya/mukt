@@ -3,10 +3,10 @@ import { WordsPullUpMultiStyle, ScrollRevealText } from '../components/AnimatedT
 
 export default function AboutSection() {
   return (
-    <section id="about" className="bg-black py-24 md:py-32 px-4 md:px-6">
-      <div className="bg-[#101010] rounded-[2rem] p-8 md:p-16 lg:p-24 max-w-6xl mx-auto flex flex-col items-center justify-center text-center">
+    <section id="about" className="bg-black py-16 md:py-32 px-4 md:px-6">
+      <div className="bg-[#101010] rounded-[2rem] p-6 md:p-16 lg:p-24 max-w-6xl mx-auto flex flex-col items-center justify-center text-center">
         
-        <div className="text-primary/50 text-[10px] sm:text-xs tracking-wider uppercase mb-12">
+        <div className="text-primary/50 text-[10px] sm:text-xs tracking-wider uppercase mb-8 md:mb-12">
           Our Journey
         </div>
 
@@ -19,7 +19,7 @@ export default function AboutSection() {
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl max-w-4xl mx-auto leading-[0.95] sm:leading-[0.9] text-[#E1E0CC]"
         />
 
-        <div className="mt-16 md:mt-24 max-w-3xl mx-auto space-y-6 text-left">
+        <div className="mt-10 md:mt-24 max-w-3xl mx-auto space-y-6 text-left">
           <ScrollRevealText 
             text="We started as freelancers, providing internet services and digital automation to MSMEs. We helped business owners navigate government forms, track applications, and optimize their tender processes on GeM."
             className="text-[#DEDBC8] text-xs sm:text-sm md:text-base leading-relaxed"

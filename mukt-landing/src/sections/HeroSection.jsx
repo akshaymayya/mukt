@@ -66,7 +66,7 @@ export default function HeroSection({ onScroll }) {
               <WordsPullUp 
                 text="Mozara" 
                 showAsterisk={true}
-                className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
+                className="text-[17vw] sm:text-[18vw] md:text-[20vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
                 style={{ color: '#E1E0CC' }}
               />
             </div>

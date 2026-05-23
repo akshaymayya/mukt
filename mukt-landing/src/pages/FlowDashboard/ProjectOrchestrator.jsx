@@ -78,9 +78,9 @@ export default function ProjectOrchestrator() {
         <p className="text-[#425466] text-lg">Configure milestones, map vendors, and set up automated payouts with built-in compliance.</p>
       </div>
 
-      <div className="flex gap-8">
+      <div className="flex flex-col lg:flex-row gap-8">
         {/* Left Column: Forms */}
-        <div className="flex-1 flex flex-col gap-8">
+        <div className="flex-1 flex flex-col gap-8 w-full">
           
           {/* Step 1: Project Details */}
           <section className="flow-card p-8 relative overflow-hidden">
@@ -90,7 +90,7 @@ export default function ProjectOrchestrator() {
               <h2 className="text-xl font-bold">Project Details</h2>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flow-input-group col-span-2">
                 <label className="flow-label">Project Name</label>
                 <div className="relative">
@@ -164,16 +164,16 @@ export default function ProjectOrchestrator() {
                         <Trash2 size={16} />
                       </button>
                     )}
-                    <div className="grid grid-cols-12 gap-4">
-                      <div className="flow-input-group col-span-5 !mb-0">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                      <div className="flow-input-group col-span-12 md:col-span-5 !mb-0">
                         <label className="flow-label text-xs">Vendor Entity Name</label>
                         <input type="text" className="flow-input !py-1.5 !text-sm" value={vendor.name} onChange={(e) => updateVendor(vendor.id, 'name', e.target.value)} placeholder="ABC Corp" />
                       </div>
-                      <div className="flow-input-group col-span-4 !mb-0">
+                      <div className="flow-input-group col-span-12 md:col-span-4 !mb-0">
                         <label className="flow-label text-xs">Role / Service</label>
                         <input type="text" className="flow-input !py-1.5 !text-sm" value={vendor.role} onChange={(e) => updateVendor(vendor.id, 'role', e.target.value)} placeholder="HVAC Contractor" />
                       </div>
-                      <div className="flow-input-group col-span-3 !mb-0">
+                      <div className="flow-input-group col-span-12 md:col-span-3 !mb-0">
                         <label className="flow-label text-xs">TDS Rate (%)</label>
                         <input type="number" className="flow-input !py-1.5 !text-sm" value={vendor.tdsRate} onChange={(e) => updateVendor(vendor.id, 'tdsRate', e.target.value)} placeholder="2" />
                       </div>
@@ -226,8 +226,8 @@ export default function ProjectOrchestrator() {
                         <span className="font-bold text-[#0a2540] leading-none mt-0.5">{index + 1}</span>
                       </div>
                       
-                      <div className="flex-1 grid grid-cols-2 gap-4">
-                        <div className="flow-input-group col-span-2 !mb-0">
+                      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="flow-input-group col-span-1 md:col-span-2 !mb-0">
                           <label className="flow-label text-xs">Milestone Trigger Condition</label>
                           <input type="text" className="flow-input !py-1.5 !text-sm font-medium" value={milestone.name} onChange={(e) => updateMilestone(milestone.id, 'name', e.target.value)} placeholder="e.g. 50% Plastering Completed" />
                         </div>
@@ -269,8 +269,8 @@ export default function ProjectOrchestrator() {
         </div>
 
         {/* Right Column: Summary & Actions */}
-        <div className="w-[320px] shrink-0">
-          <div className="sticky top-24">
+        <div className="w-full lg:w-[320px] shrink-0">
+          <div className="sticky top-6 lg:top-24">
             <div className="flow-card p-6 mb-4 bg-white border-[#e6ebf1]">
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                 <FileCheck size={20} className="text-[#635bff]" /> Project Summary

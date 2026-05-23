@@ -25,7 +25,7 @@ export default function FeaturesSection({ onScroll }) {
         </div>
 
         {/* 4-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-2 md:gap-1 lg:h-[480px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:h-[480px]">
           
           <FeatureCard index={0} delay={0.15} className="col-span-1 p-0 overflow-hidden relative group">
             <video 

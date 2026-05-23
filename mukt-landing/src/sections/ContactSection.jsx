@@ -40,7 +40,7 @@ export default function ContactSection() {
         </div>
 
         {/* Right Side: Catifaal Badge */}
-        <div className="w-full md:w-1/2 flex flex-col md:items-end justify-center pt-8 md:pt-0">
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-end justify-center pt-8 md:pt-0">
           <div className="bg-[#101010] p-8 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center max-w-xs">
             <img src="/catifaal-logo.png" alt="Catifaal Systems" className="w-24 h-auto mb-6 opacity-80" />
             <div className="text-gray-400 text-sm">
