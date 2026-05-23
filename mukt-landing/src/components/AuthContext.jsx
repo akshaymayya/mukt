@@ -11,21 +11,37 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user || null);
-      setLoading(false);
-    });
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        setUser(session?.user || null);
+      })
+      .catch((err) => {
+        console.error("Supabase session load error:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user || null);
-      if (event === 'SIGNED_IN') {
-        setShowThankYou(true);
-        setTimeout(() => setShowThankYou(false), 5000);
-      }
-    });
+    let subscription;
+    try {
+      const res = supabase.auth.onAuthStateChange((event, session) => {
+        setUser(session?.user || null);
+        if (event === 'SIGNED_IN') {
+          setShowThankYou(true);
+          setTimeout(() => setShowThankYou(false), 5000);
+        }
+      });
+      subscription = res?.data?.subscription;
+    } catch (err) {
+      console.error("Supabase auth listener setup error:", err);
+    }
 
-    return () => subscription.unsubscribe();
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
   }, []);
 
   const signInWithGoogle = async () => {

@@ -84,7 +84,7 @@ export default function HeroSection({ onScroll }) {
               </motion.p>
 
               <motion.a 
-                href={window.location.hostname === 'localhost' ? 'http://localhost:5174' : `http://${window.location.hostname}:5174`}
+                href="/flow"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ y: 20, opacity: 0 }}
