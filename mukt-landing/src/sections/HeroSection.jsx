@@ -114,7 +114,7 @@ function AuthActions() {
   if (user) {
     return (
       <div className="flex items-center gap-3">
-        <Link to="/dashboard" className="text-[10px] sm:text-xs md:text-sm font-medium text-black bg-primary px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-white transition-colors">
+        <Link to="/flow" className="text-[10px] sm:text-xs md:text-sm font-medium text-black bg-primary px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-white transition-colors">
           Dashboard
         </Link>
         <button onClick={signOut} className="text-[10px] sm:text-xs md:text-sm text-gray-400 hover:text-white transition-colors">
