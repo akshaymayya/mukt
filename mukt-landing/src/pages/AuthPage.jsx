@@ -150,7 +150,7 @@ export default function AuthPage() {
               >
                 <div className="scale-90 sm:scale-100 origin-center">
                   <ReCAPTCHA
-                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // Fallback to a dummy key for dev, user MUST provide real one
+                    sitekey="6Lfc2CctAAAAAH_PYgizaCgMgq-fbxf_kE-UlDb7"
                     onChange={handleCaptchaChange}
                     theme="dark"
                   />
