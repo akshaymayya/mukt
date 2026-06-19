@@ -8,6 +8,8 @@ import AboutUs from './pages/AboutUs';
 import ErrorBoundary from './components/ErrorBoundary';
 import DashboardApp from './Dashboard';
 import FlowDashboard from './pages/FlowDashboard/FlowDashboard';
+import AuthPage from './pages/AuthPage';
+import OnboardingPage from './pages/OnboardingPage';
 import { AuthProvider, useAuth } from './components/AuthContext';
 
 // Protected Route Component
@@ -22,8 +24,8 @@ const ProtectedRoute = ({ children }) => {
 export default function App() {
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <AuthProvider>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/about" element={<AboutUs />} />
@@ -37,11 +39,17 @@ export default function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/onboarding" element={
+              <ProtectedRoute>
+                <OnboardingPage />
+              </ProtectedRoute>
+            } />
             <Route path="/flow" element={<FlowDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </ErrorBoundary>
   );
 }

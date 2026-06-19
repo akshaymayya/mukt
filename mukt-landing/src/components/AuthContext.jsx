@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AuthContext = createContext({});
 
@@ -8,12 +9,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showThankYou, setShowThankYou] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
-        setUser(session?.user || null);
+        handleUserSession(session?.user);
       })
       .catch((err) => {
         console.error("Supabase session load error:", err);
@@ -26,7 +29,8 @@ export const AuthProvider = ({ children }) => {
     let subscription;
     try {
       const res = supabase.auth.onAuthStateChange((event, session) => {
-        setUser(session?.user || null);
+        handleUserSession(session?.user);
+        
         if (event === 'SIGNED_IN') {
           setShowThankYou(true);
           setTimeout(() => setShowThankYou(false), 5000);
@@ -42,24 +46,83 @@ export const AuthProvider = ({ children }) => {
         subscription.unsubscribe();
       }
     };
-  }, []);
+  }, [location.pathname]);
+
+  const handleUserSession = (currentUser) => {
+    setUser(currentUser || null);
+    
+    if (currentUser) {
+      const isOnboarded = currentUser.user_metadata?.onboarded === true;
+      const isCurrentlyOnOnboardingPage = location.pathname === '/onboarding';
+      
+      // If user is not onboarded and not already on the onboarding page, redirect them
+      if (!isOnboarded && !isCurrentlyOnOnboardingPage) {
+        navigate('/onboarding');
+      }
+    }
+  };
 
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin + '/'
+        redirectTo: window.location.origin + '/onboarding' // Direct to onboarding to let handleUserSession decide
       }
     });
-    if (error) console.error("Error signing in:", error);
+    if (error) console.error("Error signing in with Google:", error);
+  };
+
+  const signUpWithEmail = async (email, password, metadata) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: metadata,
+      }
+    });
+    if (error) throw error;
+    return data;
+  };
+
+  const signInWithEmail = async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+    return data;
   };
 
   const signOut = async () => {
     await supabase.auth.signOut();
+    navigate('/');
+  };
+
+  // Helper to complete onboarding
+  const completeOnboarding = async (onboardingData) => {
+    const { data, error } = await supabase.auth.updateUser({
+      data: {
+        onboarded: true,
+        ...onboardingData
+      }
+    });
+    
+    if (error) throw error;
+    setUser(data.user);
+    navigate('/');
+    return data;
   };
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signOut, loading }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      signInWithGoogle, 
+      signUpWithEmail, 
+      signInWithEmail, 
+      signOut, 
+      completeOnboarding,
+      loading 
+    }}>
       {!loading && children}
       <AnimatePresence>
         {showThankYou && (

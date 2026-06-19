@@ -125,8 +125,8 @@ function AuthActions() {
   }
 
   return (
-    <button onClick={signInWithGoogle} className="flex items-center gap-2 text-[10px] sm:text-xs md:text-sm font-medium text-black bg-white px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-gray-200 transition-colors">
+    <Link to="/auth" className="flex items-center gap-2 text-[10px] sm:text-xs md:text-sm font-medium text-black bg-white px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-gray-200 transition-colors">
       Sign In
-    </button>
+    </Link>
   );
 }
