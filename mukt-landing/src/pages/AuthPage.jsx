@@ -150,7 +150,7 @@ export default function AuthPage() {
               >
                 <div className="scale-90 sm:scale-100 origin-center">
                   <ReCAPTCHA
-                    sitekey="6Lfc2CctAAAAAH_PYgizaCgMgq-fbxf_kE-UlDb7"
+                    sitekey="6LcBJSgtAAAAAMLdu-gR1YxB6jKE2Kf6xRfOx-eu"
                     onChange={handleCaptchaChange}
                     theme="dark"
                   />
