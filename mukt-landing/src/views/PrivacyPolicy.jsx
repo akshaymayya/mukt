@@ -1,5 +1,6 @@
+'use client';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export default function PrivacyPolicy() {
   useEffect(() => {
@@ -11,10 +12,10 @@ export default function PrivacyPolicy() {
       
       {/* Simple Header */}
       <nav className="bg-[#101010] border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between sticky top-0 z-50">
-        <Link to="/" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <img src="/logo.png?v=3" alt="Mozara Logo" className="h-6 md:h-8 w-auto object-contain" />
         </Link>
-        <Link to="/" className="text-primary text-sm hover:text-white transition-colors">
+        <Link href="/" className="text-primary text-sm hover:text-white transition-colors">
           &larr; Back to Home
         </Link>
       </nav>

@@ -1,8 +1,10 @@
+'use client';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useAuth } from '../components/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState('signIn'); // 'signIn' or 'signUp'
@@ -14,7 +16,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   
   const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleCaptchaChange = (value) => {
     setCaptchaValue(value);
@@ -37,10 +39,10 @@ export default function AuthPage() {
         // The AuthContext will redirect to onboarding if needed.
         // If email confirmation is required, you might want to show a message instead.
         // For now, let's assume auto-login or we navigate to '/' which redirects to onboarding if needed.
-        navigate('/');
+        router.push('/');
       } else {
         await signInWithEmail(email, password);
-        navigate('/');
+        router.push('/');
       }
     } catch (err) {
       setError(err.message || 'An error occurred during authentication.');
@@ -60,7 +62,7 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
-      <Link to="/" className="absolute top-8 left-8">
+      <Link href="/" className="absolute top-8 left-8">
         <img src="/logo.png?v=3" alt="Mozara" className="h-8 md:h-10 w-auto object-contain" />
       </Link>
 

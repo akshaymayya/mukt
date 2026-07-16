@@ -10,8 +10,8 @@ export default {
         primary: '#DEDBC8'
       },
       fontFamily: {
-        sans: ['Almarai', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
-        serif: ['"Instrument Serif"', 'serif']
+        sans: ['var(--font-almarai)', 'Almarai', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
+        serif: ['var(--font-instrument-serif)', '"Instrument Serif"', 'serif']
       }
     },
   },

@@ -1,9 +1,10 @@
+'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { WordsPullUp } from '../components/AnimatedText';
 import { useAuth } from '../components/AuthContext';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export default function HeroSection({ onScroll }) {
   return (
@@ -114,7 +115,7 @@ function AuthActions() {
   if (user) {
     return (
       <div className="flex items-center gap-3">
-        <Link to="/flow" className="text-[10px] sm:text-xs md:text-sm font-medium text-black bg-primary px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-white transition-colors">
+        <Link href="/flow" className="text-[10px] sm:text-xs md:text-sm font-medium text-black bg-primary px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-white transition-colors">
           Dashboard
         </Link>
         <button onClick={signOut} className="text-[10px] sm:text-xs md:text-sm text-gray-400 hover:text-white transition-colors">
@@ -125,7 +126,7 @@ function AuthActions() {
   }
 
   return (
-    <Link to="/auth" className="flex items-center gap-2 text-[10px] sm:text-xs md:text-sm font-medium text-black bg-white px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-gray-200 transition-colors">
+    <Link href="/auth" className="flex items-center gap-2 text-[10px] sm:text-xs md:text-sm font-medium text-black bg-white px-3 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-gray-200 transition-colors">
       Sign In
     </Link>
   );

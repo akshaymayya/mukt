@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { LayoutDashboard, Layers, Users, FileText, Settings, Bell, Search, Plus, Menu, X } from 'lucide-react';
 import './flow-theme.css';

@@ -1,7 +1,8 @@
+'use client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from 'next/navigation';
 
 const AuthContext = createContext({});
 
@@ -9,8 +10,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showThankYou, setShowThankYou] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     // Get initial session
@@ -46,18 +47,18 @@ export const AuthProvider = ({ children }) => {
         subscription.unsubscribe();
       }
     };
-  }, [location.pathname]);
+  }, [pathname]);
 
   const handleUserSession = (currentUser) => {
     setUser(currentUser || null);
     
     if (currentUser) {
       const isOnboarded = currentUser.user_metadata?.onboarded === true;
-      const isCurrentlyOnOnboardingPage = location.pathname === '/onboarding';
+      const isCurrentlyOnOnboardingPage = pathname === '/onboarding';
       
       // If user is not onboarded and not already on the onboarding page, redirect them
       if (!isOnboarded && !isCurrentlyOnOnboardingPage) {
-        navigate('/onboarding');
+        router.push('/onboarding');
       }
     }
   };
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin + '/onboarding' // Direct to onboarding to let handleUserSession decide
+        redirectTo: (typeof window !== 'undefined' ? window.location.origin : '') + '/onboarding' // Direct to onboarding to let handleUserSession decide
       }
     });
     if (error) console.error("Error signing in with Google:", error);
@@ -95,7 +96,7 @@ export const AuthProvider = ({ children }) => {
 
   const signOut = async () => {
     await supabase.auth.signOut();
-    navigate('/');
+    router.push('/');
   };
 
   // Helper to complete onboarding
@@ -109,7 +110,7 @@ export const AuthProvider = ({ children }) => {
     
     if (error) throw error;
     setUser(data.user);
-    navigate('/');
+    router.push('/');
     return data;
   };
 
