@@ -97,7 +97,7 @@ export default function ProjectOrchestrator() {
                   <Briefcase size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8792a2]" />
                   <input 
                     type="text" 
-                    className="flow-input w-full pl-10" 
+                    className="flow-input w-full !pl-10" 
                     placeholder="e.g. Skyline Residency Phase 2" 
                     value={projectDetails.name}
                     onChange={(e) => setProjectDetails({...projectDetails, name: e.target.value})}
@@ -110,7 +110,7 @@ export default function ProjectOrchestrator() {
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8792a2] font-medium">₹</span>
                   <input 
                     type="number" 
-                    className="flow-input w-full pl-8" 
+                    className="flow-input w-full !pl-8" 
                     placeholder="50,00,000" 
                     value={projectDetails.budget}
                     onChange={(e) => setProjectDetails({...projectDetails, budget: e.target.value})}
@@ -123,7 +123,7 @@ export default function ProjectOrchestrator() {
                   <Building2 size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8792a2]" />
                   <input 
                     type="text" 
-                    className="flow-input w-full pl-10" 
+                    className="flow-input w-full !pl-10" 
                     placeholder="e.g. Lodha Group" 
                     value={projectDetails.client}
                     onChange={(e) => setProjectDetails({...projectDetails, client: e.target.value})}
@@ -252,7 +252,7 @@ export default function ProjectOrchestrator() {
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8792a2] text-sm">₹</span>
                             <input 
                               type="number" 
-                              className="flow-input w-full pl-7 !py-1.5 !text-sm" 
+                              className="flow-input w-full !pl-8 !py-1.5 !text-sm" 
                               value={milestone.amount} 
                               onChange={(e) => updateMilestone(milestone.id, 'amount', e.target.value)}
                               placeholder="2,50,000" 
